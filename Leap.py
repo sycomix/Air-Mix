@@ -43,13 +43,12 @@ def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
         if type(value).__name__ == 'SwigPyObject':
             self.__dict__[name] = value
             return
-    method = class_type.__swig_setmethods__.get(name, None)
-    if method:
+    if method := class_type.__swig_setmethods__.get(name, None):
         return method(self, value)
     if (not static):
         object.__setattr__(self, name, value)
     else:
-        raise AttributeError("You cannot add attributes to %s" % self)
+        raise AttributeError(f"You cannot add attributes to {self}")
 
 
 def _swig_setattr(self, class_type, name, value):
@@ -59,8 +58,7 @@ def _swig_setattr(self, class_type, name, value):
 def _swig_getattr_nondynamic(self, class_type, name, static=1):
     if (name == "thisown"):
         return self.this.own()
-    method = class_type.__swig_getmethods__.get(name, None)
-    if method:
+    if method := class_type.__swig_getmethods__.get(name, None):
         return method(self)
     if (not static):
         return object.__getattr__(self, name)
@@ -73,10 +71,10 @@ def _swig_getattr(self, class_type, name):
 
 def _swig_repr(self):
     try:
-        strthis = "proxy of " + self.this.__repr__()
+        strthis = f"proxy of {self.this.__repr__()}"
     except:
         strthis = ""
-    return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    return f"<{self.__class__.__module__}.{self.__class__.__name__}; {strthis} >"
 
 try:
     _object = object
@@ -2236,10 +2234,7 @@ class Listener(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        if self.__class__ == Listener:
-            _self = None
-        else:
-            _self = self
+        _self = None if self.__class__ == Listener else self
         this = LeapPython.new_Listener(_self, )
         try:
             self.this.append(this)
